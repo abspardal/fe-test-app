@@ -1,0 +1,37 @@
+.user-list {
+    padding: 48px;
+    background-color: #f1f4f4;
+    
+    &-header {
+        button {
+            background-color: #02A8F6;
+            color: #fff;
+            text-transform: uppercase;
+        }
+    }
+
+    &-body {
+        padding-top: 24px;
+
+        &-table {
+            width: 100%;
+            background-color: #fff;
+        }
+
+        td {
+            color: grey;
+        }
+
+        th {
+            color: black;
+        }
+
+        .status {
+            color: green;
+        }
+
+        .disabled {
+            color: red;
+        }
+    }
+}

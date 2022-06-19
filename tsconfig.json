@@ -1,8 +1,9 @@
 {
   "compileOnSave": false,
-  "compilerOptions": {
+  "compilerOptions": {    
     "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
+    "outDir": "./dist" ,
+    "rootDir": "./src" ,
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
@@ -17,7 +18,8 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "allowSyntheticDefaultImports": true
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
