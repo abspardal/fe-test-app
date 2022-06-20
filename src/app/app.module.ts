@@ -5,13 +5,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserListComponent } from './user-list/user-list.component';
-import { MatButtonModule, MatPaginatorModule, MatProgressSpinnerModule, MatTableModule } from '@angular/material';
+import { MatButtonModule, MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatSnackBarModule, MatSortModule, MatTableModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
+import { UserCreateComponent } from './user-create/user-create.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserListComponent
+    UserListComponent,
+    UserCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +25,12 @@ import { HttpClientModule } from '@angular/common/http';
     MatTableModule,
     MatProgressSpinnerModule,
     HttpClientModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatInputModule,
+    MatSnackBarModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -22,16 +22,21 @@ export class UsersService {
     queryParams = queryParams.append('page', payload.page);
     queryParams = queryParams.append('limit', payload.limit);
 
-
     return this.http.get(`${this.url}/users`, {params: queryParams});
   }
 
   create(payload) {
-    
+    return this.http.post(`${this.url}/users`, payload);
   }
 
   getStatuses() {
     return this.http.get(`${this.url}/statuses`);
+  }
+
+  validateUsername(username) {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('username', username);
+    return this.http.get(`${this.url}/users`, {params: queryParams});
   }
 
 }

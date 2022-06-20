@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { UsersService } from '../users.service';
+import { UsersService } from '../services/users.service';
 import { User, Users, UserStatus } from '../models/user.model';
 import * as moment from 'moment';
 import { MatPaginator } from '@angular/material';
+import { combineLatest } from 'rxjs';
 
 
 @Component({
@@ -17,15 +18,24 @@ export class UserListComponent implements OnInit {
     public statuses: UserStatus[] = [];
     public isLoading = true;
     public displayedColumns: string[] = ['username', 'name', 'email', 'status', 'date'];
-    public limit = 50;
-    public pageOptions = [50, 100, 200];
+    public limit = 20;
+    public pageOptions = [20, 50, 100];
     public total = 0;
 
     constructor(
         private usersService: UsersService
     ) {
-        this.getUsersByPage(1, this.limit);
-        this.getStatuses();
+        combineLatest([
+            this.usersService.getListByPage({page: 0, limit: this.limit}),
+            this.usersService.getStatuses()
+        ]).subscribe(([users, statuses]: any) => {
+            if (!!users && !!statuses) {
+                this.isLoading = false;
+                this.statuses = statuses.data;
+                this.users = users.data.users;
+                this.total = users.data.count;
+            }
+        });
     }
 
     ngOnInit(): void {
@@ -33,20 +43,10 @@ export class UserListComponent implements OnInit {
 
     private getUsersByPage(page, limit) {
         this.usersService.getListByPage({page, limit}).subscribe((users: any) => {
-            console.log('aqui3', users);
             if (!!users) {
                 this.isLoading = false;
                 this.users = users.data.users;
                 this.total = users.data.count;
-            }
-        });
-    }
-
-    private getStatuses() {
-        this.usersService.getStatuses().subscribe((statuses: any) => {
-            console.log('aqui2', statuses);
-            if (!!statuses) {
-                this.statuses = statuses.data;
             }
         });
     }
@@ -61,12 +61,8 @@ export class UserListComponent implements OnInit {
 
     public getNextUsers(event) {
         this.isLoading = true;
-        if (event.pageSize !== this.limit) {
-            // const pageIndex = event.pageIndex !== 0 ? 0 : event.pageIndex
-            this.getUsersByPage(0, event.pageSize);
-        } else {
-            this.getUsersByPage(event.pageIndex, this.limit);
-        }
+        this.limit = event.pageSize
+        this.getUsersByPage(event.pageIndex, event.pageSize);
     }
 
 }

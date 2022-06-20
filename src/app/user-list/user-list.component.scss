@@ -1,6 +1,11 @@
 .user-list {
-    padding: 48px;
-    background-color: #f1f4f4;
+    width: 100%;
+    height: 100%;
+    padding: 48px 16px;
+
+    @media screen and (min-width: 767px) {
+        padding: 48px;
+    }
     
     &-header {
         button {
@@ -18,12 +23,30 @@
             background-color: #fff;
         }
 
-        td {
+        th {
             color: grey;
+
+            @media screen and (max-width: 767px) {
+                max-width: 64px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                font-size: 12px;
+                padding: 0px 4px;
+            }
         }
 
-        th {
+        td {
             color: black;
+
+            @media screen and (max-width: 767px) {
+                max-width: 64px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                font-size: 12px;
+                padding: 0px 4px;
+            }
         }
 
         .status {
@@ -33,5 +56,15 @@
         .disabled {
             color: red;
         }
+
+        .loader {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            margin: auto;
+        }
+
     }
 }
