@@ -60,8 +60,8 @@ export class UserListComponent implements OnInit {
     }
 
     public getNextUsers(event) {
-        this.isLoading = true;
-        this.limit = event.pageSize
+
+        this.limit = event.pageSize;
         this.getUsersByPage(event.pageIndex, event.pageSize);
     }
 

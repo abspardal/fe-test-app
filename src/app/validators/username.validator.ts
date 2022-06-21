@@ -5,8 +5,8 @@ export function UsernameValidator(control: AbstractControl): null | object {
         return null;
     }
 
-    const pattern: RegExp = /^[!=\[\]{}".]$/;
+    const pattern = /[!\[\]{}".]/;
     const valid: boolean = pattern.test(control.value);
 
-    return valid ? null : { pattern: true };
+    return !valid ? null : { pattern: true };
 }

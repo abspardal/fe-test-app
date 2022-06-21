@@ -10,8 +10,8 @@
               <div class="d-flex flex-row">
                 <mat-form-field [ngStyle]="{'width': !!isLoading ? '95%' : '100%'}">
                   <mat-label>Username</mat-label>
-                  <input matInput formControlName="username" maxlength="20" minlength="9" type="text" (focusout)="validateUsername()">
-                  <mat-error *ngIf="username.invalid">This username already exists</mat-error>
+                  <input matInput formControlName="username" maxlength="20" minlength="3" type="text" (focusout)="validateUsername()">
+                  <mat-error *ngIf="username.invalid">{{ userNameError }}</mat-error>
                 </mat-form-field>
                 
                 <mat-spinner *ngIf="!!isLoading" [diameter]="'30'" class="loader"></mat-spinner>
@@ -21,6 +21,7 @@
                 <mat-form-field class="w-md-50 w-100 first-name-input">
                   <mat-label>First name</mat-label>
                   <input matInput type="text" formControlName="firstName">
+                  <mat-error *ngIf="firstName.invalid">Name is required</mat-error>
                 </mat-form-field>
       
                 <mat-form-field class="w-md-50 w-100 last-name-input">

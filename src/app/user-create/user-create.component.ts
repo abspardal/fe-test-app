@@ -15,6 +15,7 @@ export class UserCreateComponent implements OnInit {
 
     public form: FormGroup;
     public isLoading = false;
+    public userNameError: string;
 
     constructor(
         private usersService: UsersService,
@@ -23,7 +24,7 @@ export class UserCreateComponent implements OnInit {
         private router: Router
     ) {
         this.form = this.formBuilder.group({
-            username: ["", Validators.required], //UsernameValidator
+            username: ["", [Validators.required, UsernameValidator]], //UsernameValidator
             firstName: ["", Validators.required],
             lastName: [""],
             email: ["", [Validators.required, NewEmailValidator]]
@@ -31,6 +32,7 @@ export class UserCreateComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.setUsernameError(true);
     }
 
     public submit() {
@@ -61,8 +63,8 @@ export class UserCreateComponent implements OnInit {
                 if (!!response){
                     this.isLoading = false;
                     !!response.data.users.length 
-                        ? this.form.get('username').setErrors({'invalid': true})
-                        : this.form.get('username').setErrors(null)
+                        ? (this.form.get('username').setErrors({'invalid': true}), this.setUsernameError(false))
+                        : (this.form.get('username').setErrors(null), this.setUsernameError(true))
                 }
             });
         }
@@ -78,5 +80,15 @@ export class UserCreateComponent implements OnInit {
 
     get email() {
         return this.form.get('email');
+    }
+
+    get firstName() {
+        return this.form.get('firstName');
+    }
+
+    private setUsernameError(genericError) {
+        this.userNameError = !!genericError 
+            ? 'Format invalid. Need to have between 3 and 20 characters.'
+            : 'This username already exists';
     }
 }

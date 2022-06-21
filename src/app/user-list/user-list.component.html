@@ -7,8 +7,8 @@
 
       <mat-spinner [diameter]="60" *ngIf="!!isLoading" class="loader"></mat-spinner>
 
-      <table *ngIf="!isLoading" mat-table [dataSource]="users" class="mat-elevation-z8 user-list-body-table">
-    
+      <table *ngIf="!isLoading" mat-table [dataSource]="users" class="user-list-body-table">
+
         <ng-container matColumnDef="username">
           <th mat-header-cell *matHeaderCellDef> Username </th>
           <td mat-cell *matCellDef="let element"> {{element.username}} </td>
@@ -45,7 +45,7 @@
             [length]="total"
             [pageSize]="limit"
             showFirstLastButtons 
-            (page)="getNextUsers($event)"
+            (page)="pageEvent = $event; getNextUsers($event)"
             aria-label="Select page of users">
         </mat-paginator>
     </div>
